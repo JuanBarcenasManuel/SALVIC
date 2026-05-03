@@ -9,10 +9,34 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- 2. CARGA DE DATOS REALES (EXTRAÍDOS DEL CATÁLOGO) ---
+# Estilo personalizado para el botón de WhatsApp verde
+st.markdown("""
+    <style>
+    div.stLinkButton > a {
+        background-color: #25D366 !important;
+        color: white !important;
+        border: none !important;
+        padding: 10px 20px !important;
+        border-radius: 8px !important;
+        font-weight: bold !important;
+        text-decoration: none !important;
+        display: inline-flex !important;
+        align-items: center !important;
+    }
+    div.stLinkButton > a:hover {
+        background-color: #128C7E !important;
+        color: white !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+ruta_base = os.path.dirname(__file__)
+# Asegúrate de que el archivo se llame exactamente SALVICLOGO.jpg en tu carpeta
+ruta_logo = os.path.join(ruta_base, 'SALVICLOGO.jpg')
+
+# --- 2. CARGA DE DATOS REALES ---
 @st.cache_data
 def cargar_catalogo_salvic():
-    # Datos basados en el PDF suministrado
     productos = [
         {"Producto": "Sal Refinada Salvic", "Categoría": "Sal", "Presentación": "1kg x 25 / 20kg x 1", "Marca": "Salvic"},
         {"Producto": "Avena en Hojuelas", "Categoría": "Granos/Cereales", "Presentación": "400gr x 20", "Marca": "Gravenca / Salvic"},
@@ -28,49 +52,52 @@ def cargar_catalogo_salvic():
         {"Producto": "Margarina La Delicia", "Categoría": "Grasas", "Presentación": "250gr / 500gr", "Marca": "La Delicia"},
         {"Producto": "Vinagre Blanco", "Categoría": "Salsas", "Presentación": "500ml / 1Lt / 3.785Lt", "Marca": "La Delicia"},
         {"Producto": "Salsas (Ajo, Soya, Inglesa)", "Categoría": "Salsas", "Presentación": "150ml x 24", "Marca": "La Delicia"},
-        {"Producto": "Cereales Kellogg's (Zucaritas/Choco Pops/Corn Flakes)", "Categoría": "Cereales", "Presentación": "Variadas", "Marca": "Kellogg's"}
+        {"Producto": "Cereales Kellogg's", "Categoría": "Cereales", "Presentación": "Variadas", "Marca": "Kellogg's"}
     ]
     return pd.DataFrame(productos)
 
 df_salvic = cargar_catalogo_salvic()
 
-# --- 3. BARRA LATERAL (NAVEGACIÓN) ---
+# --- 3. BARRA LATERAL ---
 with st.sidebar:
-    st.markdown(f"### **RIF: J-29470578-2**") # RIF extraído 
+    if os.path.exists(ruta_logo):
+        st.image(ruta_logo, use_container_width=True)
+    else:
+        st.markdown(f"### **SALVIC C.A.**")
+    
+    st.markdown(f"**RIF: J-29470578-2**") [cite: 1, 8, 27]
     st.markdown("---")
     menu = st.radio("Secciones:", ["Inicio", "Catálogo Interactivo", "Contacto"])
     st.markdown("---")
-    st.info("📦 Envíos a todo el país") # Info del catálogo 
+    st.info("📦 Envíos a todo el país") [cite: 5]
 
-# --- 4. SECCIÓN: INICIO (PÁGINA PRINCIPAL) ---
+# --- 4. SECCIÓN: INICIO ---
 if menu == "Inicio":
     st.title("Distribuidora SALVIC C.A.")
     st.subheader("¡Aliados en tu crecimiento!")
     
-    # Espacio para el logo que pondrás luego
-    st.image("https://via.placeholder.com/800x250.png?text=LOGO+SALVIC+AQUÍ", use_container_width=True)
+    if os.path.exists(ruta_logo):
+        st.image(ruta_logo, width=400)
     
     col_hist, col_val = st.columns(2)
     with col_hist:
         st.markdown("### 📜 Reseña Histórica")
-        st.write("[Espacio para redactar la historia de Salvic...]")
+        st.write("Distribuidora SALVIC C.A. nace con el compromiso de ofrecer productos alimenticios de primera calidad en todo el territorio nacional.")
         
     with col_val:
         st.markdown("### 💎 Propuesta de Valor")
-        st.write("[Espacio para redactar la propuesta de valor...]")
+        st.write("Nos enfocamos en la eficiencia logística y en brindar marcas de confianza para el hogar venezolano.")
 
-# --- 5. SECCIÓN: CATÁLOGO CON BUSCADOR ---
+# --- 5. SECCIÓN: CATÁLOGO ---
 elif menu == "Catálogo Interactivo":
     st.title("🔎 Nuestro Catálogo")
     
-    # Filtros
     c1, c2 = st.columns([3, 1])
     with c1:
         query = st.text_input("¿Qué producto buscas?", placeholder="Ej: Café, Harina, Caraotas...")
     with c2:
         cat = st.selectbox("Categoría:", ["Todas"] + list(df_salvic["Categoría"].unique()))
     
-    # Lógica de búsqueda
     df_res = df_salvic.copy()
     if query:
         df_res = df_res[df_res["Producto"].str.contains(query, case=False) | df_res["Marca"].str.contains(query, case=False)]
@@ -79,18 +106,17 @@ elif menu == "Catálogo Interactivo":
         
     st.dataframe(df_res, use_container_width=True, hide_index=True)
     
-    # Botón de WhatsApp para pedidos
     st.markdown("### 📲 ¿Listo para hacer un pedido?")
-    wa_link = "https://wa.me/584122440691?text=Hola,%20quisiera%20consultar%20precios%20del%20catálogo" # Teléfono del catálogo 
-    st.link_button("Contactar por WhatsApp", wa_link, type="primary")
+    wa_link = "https://wa.me/584122440691?text=Hola,%20quisiera%20consultar%20precios%20del%20catálogo" [cite: 7]
+    st.link_button("💬 Contactar por WhatsApp", wa_link)
 
 # --- 6. SECCIÓN: CONTACTO ---
 elif menu == "Contacto":
     st.title("📩 Canales de Atención")
-    st.write("📍 **Ubicación:** Venezuela (Envíos a nivel nacional)")
-    st.write("📞 **Teléfono:** 0412-2440691") # Datos catálogo 
-    st.write("✉️ **Email:** salvicdistribuidora@gmail.com") # Datos catálogo [cite: 21, 51]
-    st.write("📸 **Instagram:** @salvicdistribuidora") # Datos catálogo [cite: 6]
+    st.write("📍 **Ubicación:** Venezuela (Envíos a nivel nacional)") [cite: 5]
+    st.write("📞 **Teléfono:** 0412-2440691") [cite: 7]
+    st.write("✉️ **Email:** salvicdistribuidora@gmail.com") [cite: 21, 51]
+    st.write("📸 **Instagram:** @salvicdistribuidora") [cite: 6]
 
 st.markdown("---")
-st.caption(f"© {pd.Timestamp.now().year} Distribuidora SALVIC C.A. | RIF J-29470578-2")
+st.caption(f"© {pd.Timestamp.now().year} Distribuidora SALVIC C.A. | RIF J-29470578-2") [cite: 1, 8, 27]
