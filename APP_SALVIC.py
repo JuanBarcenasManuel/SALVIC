@@ -89,24 +89,24 @@ with st.sidebar:
     st.info("🚚 Envíos a todo el país")
 
 # --- 5. SECCIÓN: INICIO ---
+# --- 5. SECCIÓN: INICIO (Minimalista y Limpia) ---
 if menu == "🏠 Inicio":
     st.markdown("<br>", unsafe_allow_html=True)
     
-    # Título principal con color forzado
-    st.markdown("<h1 style='color: #00468b !important; text-align: left;'>Distribuidora SALVIC C.A.</h1>", unsafe_allow_html=True)
-    st.markdown("<p style='font-size: 1.2rem; color: #1a1a1a !important;'>Aliados estratégicos en tu crecimiento.</p>", unsafe_allow_html=True)
+    # Título con el azul de tu logo, pero sin cajas
+    st.markdown("<h1 style='color: #00468b; margin-bottom: 0;'>Distribuidora SALVIC C.A.</h1>", unsafe_allow_html=True)
+    st.markdown("<p style='font-size: 1.1rem; color: #666;'>Aliados en tu crecimiento</p>", unsafe_allow_html=True)
     
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("---") # Una línea divisoria sutil
     
-    # Usamos columnas para organizar el contenido
+    # Usamos columnas solo para organizar el texto, sin fondos de colores
     col1, col2 = st.columns(2)
 
     with col1:
-        # Bloque con fondo Azul y letras Blancas (Contraste Máximo)
         st.markdown("""
-            <div style="background-color: #00468b; padding: 30px; border-radius: 10px; height: 300px;">
-                <h3 style="color: white !important; margin-top: 0;">📜 Nuestra Reseña</h3>
-                <p style="color: white !important; text-align: justify; line-height: 1.6; font-size: 1.05rem;">
+            <div style="padding-right: 20px;">
+                <h3 style="color: #00468b;">📜 Nuestra Reseña</h3>
+                <p style="color: #1a1a1a; line-height: 1.6; text-align: justify;">
                     <b>Distribuidora SALVIC C.A.</b> es una organización venezolana 
                     dedicada al abastecimiento de productos de la canasta básica de la más alta calidad. 
                     Nuestra red logística garantiza una distribución eficiente 
@@ -117,21 +117,20 @@ if menu == "🏠 Inicio":
         """, unsafe_allow_html=True)
 
     with col2:
-        # Bloque con fondo Gris Oscuro Profesional y letras Blancas
         st.markdown("""
-            <div style="background-color: #455A64; padding: 30px; border-radius: 10px; height: 300px;">
-                <h3 style="color: white !important; margin-top: 0;">💎 Propuesta de Valor</h3>
-                <p style="color: white !important; text-align: justify; line-height: 1.6; font-size: 1.05rem;">
+            <div style="padding-left: 20px; border-left: 1px solid #eee;">
+                <h3 style="color: #00468b;">💎 Propuesta de Valor</h3>
+                <p style="color: #1a1a1a; line-height: 1.6; text-align: justify;">
                     Nos diferenciamos por una <b>gestión logística personalizada</b>. 
-                    Nuestra propuesta se fundamenta en tres pilares: variedad competitiva, 
-                    atención directa y el compromiso de ser el soporte que 
-                    tu inventario necesita para mantenerse siempre surtido, rentable y listo para el cliente.
+                    Nuestra propuesta se fundamenta en la variedad competitiva, 
+                    la atención directa y el compromiso de ser el soporte que 
+                    tu inventario necesita para mantenerse siempre surtido y rentable.
                 </p>
             </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.success("🚚 Envíos a todo el país | RIF: J-29470578-2")
+    st.markdown("<br><br>", unsafe_allow_html=True)
+    st.info("🚚 Envíos a todo el país | RIF: J-29470578-2")
 # --- 6. SECCIÓN: CATÁLOGO ---
 elif menu == "🔎 Catálogo Interactivo":
     st.title("Catálogo de Productos 2026")
