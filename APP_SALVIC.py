@@ -4,132 +4,156 @@ import os
 
 # --- 1. CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(
-    page_title="SALVIC C.A. | Catálogo",
+    page_title="SALVIC C.A. | Catálogo 2026",
     page_icon="📦",
     layout="wide"
 )
 
-# --- 2. CSS PARA MINIMALISMO ABSOLUTO ---
+# --- 2. ESTILOS PERSONALIZADOS (CSS) ---
 st.markdown("""
     <style>
-    /* Fondo gris muy sutil para que el contenido blanco resalte */
+    /* Color de fondo y tipografía general */
     .main {
-        background-color: #f4f7f9;
+        background-color: #f8f9fa;
     }
     
-    /* Tipografía */
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
-    html, body, [class*="css"] {
-        font-family: 'Montserrat', sans-serif;
-    }
-
-    /* Contenedor de información alineado a la derecha */
-    .right-container {
-        text-align: right;
-        padding: 40px;
-        background-color: transparent;
-        border-right: 1px solid #1a3a5a; /* Línea fina azul oscuro */
-        margin-right: 20px;
-    }
-
-    .title-salvic {
-        color: #1a3a5a;
-        font-weight: 600;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        font-size: 1.5rem;
-        margin-bottom: 20px;
-    }
-
-    .text-body {
-        color: #555;
-        font-weight: 300;
-        line-height: 1.8;
-        font-size: 1rem;
-        max-width: 600px;
-        margin-left: auto;
-    }
-
-    /* Botón WhatsApp Minimalista (Outline) */
+    /* Estilo para el botón de WhatsApp institucional */
     div.stLinkButton > a {
-        background-color: transparent !important;
-        color: #25D366 !important;
-        border: 1px solid #25D366 !important;
-        border-radius: 2px !important;
-        padding: 10px 25px !important;
-        font-size: 12px !important;
-        letter-spacing: 1px !important;
-        text-transform: uppercase !important;
-        transition: 0.4s !important;
-    }
-    div.stLinkButton > a:hover {
         background-color: #25D366 !important;
         color: white !important;
+        border: none !important;
+        padding: 0.6rem 1.2rem !important;
+        border-radius: 10px !important;
+        font-weight: bold !important;
+        transition: 0.3s;
+        text-decoration: none !important;
+        display: inline-flex !important;
+        align-items: center !important;
+    }
+    div.stLinkButton > a:hover {
+        background-color: #128C7E !important;
+        transform: scale(1.05);
+    }
+
+    /* Estilo para las tarjetas de información */
+    .info-card {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 15px;
+        border-left: 5px solid #00468b;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        margin-bottom: 1rem;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# Logo
+# Gestión de logo
 ruta_base = os.path.dirname(__file__)
 ruta_logo = os.path.join(ruta_base, 'SALVICLOGO.png')
 
-# --- 3. BARRA LATERAL (Limpia) ---
+# --- 3. DATOS DEL CATÁLOGO ---
+@st.cache_data
+def cargar_datos():
+    productos = [
+        {"Producto": "Sal Refinada Salvic", "Categoría": "Sal", "Presentación": "1kg x 25 / 20kg x 1", "Marca": "Salvic"},
+        {"Producto": "Avena en Hojuelas", "Categoría": "Granos", "Presentación": "400gr x 20", "Marca": "Gravenca / Salvic"},
+        {"Producto": "Maíz Cotufa", "Categoría": "Granos", "Presentación": "400gr x 20", "Marca": "Gravenca"},
+        {"Producto": "Lentejas", "Categoría": "Granos", "Presentación": "400gr x 20", "Marca": "Gravenca / Salvic"},
+        {"Producto": "Caraotas Negras", "Categoría": "Granos", "Presentación": "400gr x 20", "Marca": "Gravenca / Salvic"},
+        {"Producto": "Azúcar Refinada Kristal", "Categoría": "Azúcar", "Presentación": "1kg x 20", "Marca": "Kristal"},
+        {"Producto": "Café San Domingo (Gourmet/Premium)", "Categoría": "Café", "Presentación": "100gr a 1kg", "Marca": "San Domingo"},
+        {"Producto": "Café La Protectora", "Categoría": "Café", "Presentación": "250gr / 500gr", "Marca": "La Protectora"},
+        {"Producto": "Arroz Premium", "Categoría": "Arroz", "Presentación": "1kg x 24", "Marca": "Masia"},
+        {"Producto": "Harina de Maíz Blanco", "Categoría": "Harina", "Presentación": "900gr x 10", "Marca": "Masia"},
+        {"Producto": "Pastas América (Varias)", "Categoría": "Pastas", "Presentación": "500gr a 1kg", "Marca": "América"},
+        {"Producto": "Margarina La Delicia", "Categoría": "Grasas", "Presentación": "250gr / 500gr", "Marca": "La Delicia"},
+        {"Producto": "Vinagre Blanco", "Categoría": "Salsas", "Presentación": "500ml / 1Lt / 3.785Lt", "Marca": "La Delicia"},
+        {"Producto": "Salsas (Ajo, Soya, Inglesa)", "Categoría": "Salsas", "Presentación": "150ml x 24", "Marca": "La Delicia"},
+        {"Producto": "Cereales Kellogg's", "Categoría": "Cereales", "Presentación": "Variadas", "Marca": "Kellogg's"}
+    ]
+    return pd.DataFrame(productos)
+
+df_salvic = cargar_datos()
+
+# --- 4. BARRA LATERAL (Navegación Limpia) ---
 with st.sidebar:
     if os.path.exists(ruta_logo):
         st.image(ruta_logo, use_container_width=True)
-    st.markdown("<br><br>", unsafe_allow_html=True)
-    menu = st.radio("", ["HOME", "PRODUCTOS", "CONTACTO"])
+    else:
+        st.title("SALVIC C.A.")
+    
     st.markdown("---")
-    st.caption("RIF: J-29470578-2")
+    menu = st.radio("Navegación", ["🏠 Inicio", "🔎 Catálogo Interactivo", "📞 Contacto"])
+    st.markdown("---")
+    st.caption("**RIF:** J-29470578-2")
+    st.info("🚚 Envíos a todo el país")
 
-# --- 4. SECCIÓN: HOME ---
-if menu == "HOME":
-    st.markdown("<br><br>", unsafe_allow_html=True)
+# --- 5. SECCIÓN: INICIO ---
+if menu == "🏠 Inicio":
+    st.title("Distribuidora SALVIC C.A.")
+    st.subheader("¡Aliados en tu crecimiento!")
     
-    # Usamos 3 columnas para empujar todo a la derecha
-    col1, col2, col3 = st.columns([1, 0.2, 2])
-    
-    with col3:
-        st.markdown("""
-            <div class="right-container">
-                <div class="title-salvic">Distribuidora SALVIC C.A.</div>
-                <p class="text-body">
-                    <b>Excelencia en Suministros.</b><br>
-                    Somos un eslabón estratégico en la cadena de comercialización de alimentos 
-                    en Venezuela. Nuestra operación se define por la puntualidad y la 
-                    selección rigurosa de productos que cumplen con los más altos estándares.
-                </p>
-                <br><br>
-                <div class="title-salvic" style="font-size: 1.2rem;">Propuesta de Valor</div>
-                <p class="text-body">
-                    Convertimos la logística en una ventaja competitiva para nuestros clientes. 
-                    Garantizamos un flujo constante de mercancía con una atención personalizada 
-                    que entiende la dinámica del mercado nacional.
-                </p>
-            </div>
-        """, unsafe_allow_html=True)
+    # Contenedor para Reseña
+    st.markdown(f"""
+    <div class="info-card">
+        <h3>📜 Nuestra Reseña</h3>
+        <p>
+            <b>Distribuidora SALVIC C.A.</b> es una empresa venezolana 
+            nacida con la misión de abastecer hogares y comercios con productos de la canasta básica de la 
+            más alta calidad. Con una sólida red logística, garantizamos el alcance de nuestros 
+            productos en todo el territorio nacional, trabajando de la mano con marcas líderes y 
+            marcas propias de confianza.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
-# --- 5. SECCIÓN: PRODUCTOS ---
-elif menu == "PRODUCTOS":
-    st.markdown("<h2 style='color: #1a3a5a; font-weight: 300;'>Catálogo de Disponibilidad</h2>", unsafe_allow_html=True)
-    
-    # Simulando carga de datos rápida
-    df = pd.DataFrame([
-        {"Producto": "Sal Refinada Salvic", "Presentación": "1kg x 25", "Marca": "Salvic"},
-        {"Producto": "Avena en Hojuelas", "Presentación": "400gr x 20", "Marca": "Gravenca"},
-        {"Producto": "Café San Domingo", "Presentación": "500gr", "Marca": "San Domingo"},
-        {"Producto": "Arroz Premium", "Presentación": "1kg x 24", "Marca": "Masia"}
-    ])
-    
-    st.dataframe(df, use_container_width=True, hide_index=True)
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.link_button("Solicitar Lista de Precios", "https://wa.me/584122440691")
+    # Contenedor para Propuesta de Valor
+    st.markdown("""
+    <div class="info-card">
+        <h3>💎 Propuesta de Valor</h3>
+        <p>
+            Nos diferenciamos por ofrecer una <b>gestión logística eficiente y personalizada</b>, asegurando que 
+            cada producto llegue en condiciones óptimas a su destino. Nuestra propuesta se basa en tres pilares: 
+            <b>variedad competitiva</b> (desde granos y café hasta productos de exportación), <b>atención directa</b> 
+            y el compromiso inquebrantable de ser el aliado estratégico que tu negocio necesita para crecer.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
-# --- 6. SECCIÓN: CONTACTO ---
-elif menu == "CONTACTO":
-    st.markdown("<h2 style='color: #1a3a5a; font-weight: 300;'>Contacto</h2>", unsafe_allow_html=True)
-    st.write("✉️ salvicdistribuidora@gmail.com")
-    st.write("📞 0412-2440691")
+# --- 6. SECCIÓN: CATÁLOGO ---
+elif menu == "🔎 Catálogo Interactivo":
+    st.title("Catálogo de Productos 2026")
+    
+    c1, c2 = st.columns([3, 1])
+    with c1:
+        busqueda = st.text_input("¿Qué necesitas hoy?", placeholder="Ej: Harina Masia, Café...")
+    with c2:
+        filtro_cat = st.selectbox("Categoría", ["Todas"] + sorted(list(df_salvic["Categoría"].unique())))
+
+    # Filtrado
+    res = df_salvic.copy()
+    if busqueda:
+        res = res[res["Producto"].str.contains(busqueda, case=False) | res["Marca"].str.contains(busqueda, case=False)]
+    if filtro_cat != "Todas":
+        res = res[res["Categoría"] == filtro_cat]
+
+    st.dataframe(res, use_container_width=True, hide_index=True)
+    
+    st.markdown("### 📲 Inicia tu pedido")
+    st.link_button("💬 Consultar precios por WhatsApp", "https://wa.me/584122440691?text=Hola,%20quisiera%20un%20presupuesto")
+
+# --- 7. SECCIÓN: CONTACTO ---
+elif menu == "📞 Contacto":
+    st.title("Canales Oficiales")
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown(f"""
+        - **📍 Ubicación:** Envíos a Nivel Nacional [cite: 189]
+        - **📞 Teléfono:** 0412-2440691 
+        - **✉️ Email:** salvicdistribuidora@gmail.com [cite: 205]
+        """)
+    with col2:
+        st.markdown("- **📸 Instagram:** [@salvicdistribuidora](https://instagram.com/salvicdistribuidora) [cite: 190]")
 
 st.markdown("---")
-st.caption("© 2026 SALVIC C.A. | Distribución Nacional")
+st.caption(f"© {pd.Timestamp.now().year} Distribuidora SALVIC C.A. | RIF J-29470578-2") 
