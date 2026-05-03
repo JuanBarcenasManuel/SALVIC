@@ -89,26 +89,27 @@ with st.sidebar:
     st.info("🚚 Envíos a todo el país")
 
 # --- 5. SECCIÓN: INICIO ---
-
 if menu == "🏠 Inicio":
     st.markdown("<br>", unsafe_allow_html=True)
-    st.title("Distribuidora SALVIC C.A.")
-    st.markdown("<p style='font-size: 1.2rem; color: #546E7A;'>Aliados estratégicos en el crecimiento de tu negocio.</p>", unsafe_allow_html=True)
+    
+    # Título principal con color forzado
+    st.markdown("<h1 style='color: #00468b !important; text-align: left;'>Distribuidora SALVIC C.A.</h1>", unsafe_allow_html=True)
+    st.markdown("<p style='font-size: 1.2rem; color: #1a1a1a !important;'>Aliados estratégicos en tu crecimiento.</p>", unsafe_allow_html=True)
     
     st.markdown("<br>", unsafe_allow_html=True)
     
-    # Usamos columnas para centrar o desplazar el texto si lo deseas
-    col1, col2 = st.columns([1, 1])
+    # Usamos columnas para organizar el contenido
+    col1, col2 = st.columns(2)
 
     with col1:
-        # Estilo de Reseña: Sin caja blanca, solo texto y una barra lateral de color
+        # Bloque con fondo Azul y letras Blancas (Contraste Máximo)
         st.markdown("""
-            <div style="border-left: 3px solid #00468b; padding-left: 20px; margin-bottom: 40px;">
-                <h3 style="color: #00468b; margin-bottom: 10px;">📜 Nuestra Reseña</h3>
-                <p style="text-align: justify; color: #1a1a1a; line-height: 1.6;">
-                    <b>Distribuidora SALVIC C.A.</b> es una organización venezolana comprometida 
-                    con el abastecimiento de productos de la canasta básica de la más alta calidad. 
-                    Nuestra robusta red logística nos permite garantizar una distribución eficiente 
+            <div style="background-color: #00468b; padding: 30px; border-radius: 10px; height: 300px;">
+                <h3 style="color: white !important; margin-top: 0;">📜 Nuestra Reseña</h3>
+                <p style="color: white !important; text-align: justify; line-height: 1.6; font-size: 1.05rem;">
+                    <b>Distribuidora SALVIC C.A.</b> es una organización venezolana 
+                    dedicada al abastecimiento de productos de la canasta básica de la más alta calidad. 
+                    Nuestra red logística garantiza una distribución eficiente 
                     en todo el territorio nacional, trabajando con marcas líderes para asegurar 
                     la excelencia en cada entrega.
                 </p>
@@ -116,21 +117,21 @@ if menu == "🏠 Inicio":
         """, unsafe_allow_html=True)
 
     with col2:
-        # Estilo de Propuesta de Valor: Simétrico al anterior
+        # Bloque con fondo Gris Oscuro Profesional y letras Blancas
         st.markdown("""
-            <div style="border-left: 3px solid #00468b; padding-left: 20px; margin-bottom: 40px;">
-                <h3 style="color: #00468b; margin-bottom: 10px;">💎 Propuesta de Valor</h3>
-                <p style="text-align: justify; color: #1a1a1a; line-height: 1.6;">
+            <div style="background-color: #455A64; padding: 30px; border-radius: 10px; height: 300px;">
+                <h3 style="color: white !important; margin-top: 0;">💎 Propuesta de Valor</h3>
+                <p style="color: white !important; text-align: justify; line-height: 1.6; font-size: 1.05rem;">
                     Nos diferenciamos por una <b>gestión logística personalizada</b>. 
                     Nuestra propuesta se fundamenta en tres pilares: variedad competitiva, 
-                    atención directa y el compromiso inquebrantable de ser el soporte que 
-                    tu inventario necesita para mantenerse siempre surtido y rentable.
+                    atención directa y el compromiso de ser el soporte que 
+                    tu inventario necesita para mantenerse siempre surtido, rentable y listo para el cliente.
                 </p>
             </div>
         """, unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.info("💡 Explora nuestro catálogo interactivo en el menú lateral para conocer nuestra disponibilidad.")
+    st.success("🚚 Envíos a todo el país | RIF: J-29470578-2")
 # --- 6. SECCIÓN: CATÁLOGO ---
 elif menu == "🔎 Catálogo Interactivo":
     st.title("Catálogo de Productos 2026")
