@@ -89,37 +89,48 @@ with st.sidebar:
     st.info("🚚 Envíos a todo el país")
 
 # --- 5. SECCIÓN: INICIO ---
+
 if menu == "🏠 Inicio":
+    st.markdown("<br>", unsafe_allow_html=True)
     st.title("Distribuidora SALVIC C.A.")
-    st.subheader("¡Aliados en tu crecimiento!")
+    st.markdown("<p style='font-size: 1.2rem; color: #546E7A;'>Aliados estratégicos en el crecimiento de tu negocio.</p>", unsafe_allow_html=True)
     
-    # Contenedor para Reseña
-    st.markdown(f"""
-    <div class="info-card">
-        <h3>📜 Nuestra Reseña</h3>
-        <p>
-            <b>Distribuidora SALVIC C.A.</b> es una empresa venezolana consolidada con el RIF J-29470578-2, 
-            nacida con la misión de abastecer hogares y comercios con productos de la canasta básica de la 
-            más alta calidad[cite: 185, 192]. Con una sólida red logística, garantizamos el alcance de nuestros 
-            productos en todo el territorio nacional, trabajando de la mano con marcas líderes y 
-            marcas propias de confianza[cite: 189, 204, 208].
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    # Usamos columnas para centrar o desplazar el texto si lo deseas
+    col1, col2 = st.columns([1, 1])
 
-    # Contenedor para Propuesta de Valor
-    st.markdown("""
-    <div class="info-card">
-        <h3>💎 Propuesta de Valor</h3>
-        <p>
-            Nos diferenciamos por ofrecer una <b>gestión logística eficiente y personalizada</b>, asegurando que 
-            cada producto llegue en condiciones óptimas a su destino. Nuestra propuesta se basa en tres pilares: 
-            <b>variedad competitiva</b> (desde granos y café hasta productos de exportación), <b>atención directa</b> 
-            y el compromiso inquebrantable de ser el aliado estratégico que tu negocio necesita para crecer.
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+    with col1:
+        # Estilo de Reseña: Sin caja blanca, solo texto y una barra lateral de color
+        st.markdown("""
+            <div style="border-left: 3px solid #00468b; padding-left: 20px; margin-bottom: 40px;">
+                <h3 style="color: #00468b; margin-bottom: 10px;">📜 Nuestra Reseña</h3>
+                <p style="text-align: justify; color: #1a1a1a; line-height: 1.6;">
+                    <b>Distribuidora SALVIC C.A.</b> es una organización venezolana comprometida 
+                    con el abastecimiento de productos de la canasta básica de la más alta calidad. 
+                    Nuestra robusta red logística nos permite garantizar una distribución eficiente 
+                    en todo el territorio nacional, trabajando con marcas líderes para asegurar 
+                    la excelencia en cada entrega.
+                </p>
+            </div>
+        """, unsafe_allow_html=True)
 
+    with col2:
+        # Estilo de Propuesta de Valor: Simétrico al anterior
+        st.markdown("""
+            <div style="border-left: 3px solid #00468b; padding-left: 20px; margin-bottom: 40px;">
+                <h3 style="color: #00468b; margin-bottom: 10px;">💎 Propuesta de Valor</h3>
+                <p style="text-align: justify; color: #1a1a1a; line-height: 1.6;">
+                    Nos diferenciamos por una <b>gestión logística personalizada</b>. 
+                    Nuestra propuesta se fundamenta en tres pilares: variedad competitiva, 
+                    atención directa y el compromiso inquebrantable de ser el soporte que 
+                    tu inventario necesita para mantenerse siempre surtido y rentable.
+                </p>
+            </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.info("💡 Explora nuestro catálogo interactivo en el menú lateral para conocer nuestra disponibilidad.")
 # --- 6. SECCIÓN: CATÁLOGO ---
 elif menu == "🔎 Catálogo Interactivo":
     st.title("Catálogo de Productos 2026")
