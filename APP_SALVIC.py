@@ -98,11 +98,11 @@ if menu == "🏠 Inicio":
     <div class="info-card">
         <h3>📜 Nuestra Reseña</h3>
         <p>
-            <b>Distribuidora SALVIC C.A.</b> es una empresa venezolana consolidada con el RIF J-29470578-2, 
+            <b>Distribuidora SALVIC C.A.</b> es una empresa venezolana 
             nacida con la misión de abastecer hogares y comercios con productos de la canasta básica de la 
-            más alta calidad[cite: 185, 192]. Con una sólida red logística, garantizamos el alcance de nuestros 
+            más alta calidad. Con una sólida red logística, garantizamos el alcance de nuestros 
             productos en todo el territorio nacional, trabajando de la mano con marcas líderes y 
-            marcas propias de confianza[cite: 189, 204, 208].
+            marcas propias de confianza.
         </p>
     </div>
     """, unsafe_allow_html=True)
