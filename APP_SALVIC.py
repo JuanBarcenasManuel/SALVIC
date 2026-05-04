@@ -96,10 +96,10 @@ if menu == "🏠 Inicio":
     # Columnas de Información
     c1, c2 = st.columns(2)
     with c1:
-        st.markdown("### 📜 Nuestra Reseña")
+        st.markdown("###   Nuestra Reseña")
         st.write("Somos una organización dedicada al abastecimiento estratégico de productos de consumo masivo, garantizando calidad y puntualidad en cada rincón del país.")
     with c2:
-        st.markdown("### 💎 Propuesta de Valor")
+        st.markdown("###   Propuesta de Valor")
         st.write("Ofrecemos gestión logística eficiente y personalizada. Somos el aliado estratégico que tu negocio necesita para mantenerse surtido y rentable.")
 
     st.write("<br>", unsafe_allow_html=True)
